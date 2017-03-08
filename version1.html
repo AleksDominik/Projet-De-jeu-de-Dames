@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="jeudame.css" rel="stylesheet">
+	<title>jeu</title>
+</head>
+<body>
+<style type="text/css">
+.casenoir{
+	background-color: black; 
+}	
+table tr td {
+	display: block;
+	width: 100px;
+
+	/*display: inline;*/
+	background-color: red; 
+}
+td{
+	float: left ;
+	min-height: 50px;
+	border-style:solid;
+}
+
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script type="text/javascript">
+ $each(getElementByTagName('table td tr'), function(n){this.addClass('casenoir')});
+    
+	/*$('table td tr :nth-child(2n)').addClass('casenoir');
+	$('table td tr :nth-child(2n+1)').addClass('casenoir');*/
+</script>
+
+<table>
+<tr><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td> </td> <td> </td> <td></td> <td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td> </td> <td> </td><td> </td><td> </td><td></td><td></td><td></td><td></td></tr>
+<tr><td>   </td> <td> </td><td> </td><td>  </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>   </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>  </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td> </td> <td>  </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+</table>
+
+
+
+</body>
+</html>
