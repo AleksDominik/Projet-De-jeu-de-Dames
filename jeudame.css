@@ -1,13 +1,13 @@
 .casenoir{
-  background-color: green ; 
+  background-color: black ; 
   display: block;
-  width: 100px;
+  width: 50px;
   border-style:solid;
 
 } 
 table tr td {
   display: block;
-  width: 100px;
+  width: 50px;
 
   display: inline;
   background-color: red; 
@@ -15,4 +15,10 @@ table tr td {
 td{
   float: left ;
   min-height: 50px;
-  border-style:solid;
+  border-style:solid;}
+  .pionb{
+
+  }
+  .piona{
+    
+  }
