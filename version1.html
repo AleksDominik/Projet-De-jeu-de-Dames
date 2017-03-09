@@ -18,15 +18,20 @@ $(document).ready(function(){
         $('tr:nth-child(2) td:nth-child(5)').css('backgroundColor','green').on('click',function(){$(this).css( 'backgroundColor','yellow')});
         $("td, tr").click(function(event){
         $("p").html("Triggered by a " + event.target.nodeName + " element.")});
+        var inc=0;
        for (var j= 1; j <= 10; j++) { 
-       	for (var i =1 ; i <= 10; i++) {
+         var u=(inc%2)+1;
+       	for (var i =u ; i <= 10; i+=2) {
+       		
+
        		var g=i;
        		var d=j;
-       		var mul=(j-1)*10+i;
+       		var mul=(j-1)*10+inc;
+       		inc++;g.toString();d.toString();
        		var dd='tr:nth-child('+d+') td:nth-child('+g+')';
-       		g.toString();d.toString();
+       		
 
-       		$(dd).html(mul).css('font-color','white')};};
+       		$(dd).html(inc).css('font-color','white')};};
        
         
         
