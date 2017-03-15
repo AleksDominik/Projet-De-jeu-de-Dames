@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,4 +47,71 @@ td{
 
 
 </body>
+=======
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <link rel="stylesheet" type="text/css" href="jeudame.css">
+ 
+	<title>jeu</title>
+</head>
+<body>
+<div>
+<p >voiLA</p>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+ 
+        $.each([0,1,2,3,4,5],function(n){$('tr:nth-child(2n) td:nth-child(2n+1)').
+        	addClass("casenoir");$('tr:nth-child(2n+1) td:nth-child(2n)').addClass("casenoir")});
+        $('tr:nth-child(2) td:nth-child(5)').css('backgroundColor','green').on('click',function(){$(this).css( 'backgroundColor','yellow')});
+        $("td, tr").click(function(event){
+        $("p").html("Triggered by a " + event.target.nodeName + " element.")});
+        var inc=0;
+       for (var j= 1; j <= 10; j++) { 
+         var u=(inc%2)+1;
+       	for (var i =u ; i <= 10; i+=2) {
+       		
+
+       		var g=i;
+       		var d=j;
+       		var mul=(j-1)*10+inc;
+       		inc++;g.toString();d.toString();
+       		var dd='tr:nth-child('+d+') td:nth-child('+g+')';
+       		
+
+       		$(dd).html(inc).css('font-color','white')};};
+       
+        
+        
+
+    
+});
+/*var Myelement=document.getElementsByTagName('td');
+$(Myelement).addClass('casenoir');*/
+          
+	/*$('table td tr :nth-child(2n)').addClass('casenoir');
+	$('table td tr :nth-child(2n+1)').addClass('casenoir');*/
+
+</script>
+
+<table >
+
+<tr><td> </td> <td>  </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td> </td> <td>  </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td> </td> <td>  </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td> </td> <td>  </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td> </td> <td>  </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td> </td> <td>  </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td> </td> <td>  </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td> </td> <td>  </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td> </td> <td>  </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td> </td> <td>  </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+</table>
+
+</div>
+
+</body>
+>>>>>>> refs/remotes/origin/jeudamev1
 </html>

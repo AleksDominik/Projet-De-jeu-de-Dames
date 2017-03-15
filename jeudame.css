@@ -1,0 +1,24 @@
+.casenoir{
+  background-color: yellow ; 
+  display: block;
+  width: 50px;
+  border-style:solid;
+
+} 
+table tr td {
+  display: block;
+  width: 50px;
+
+  display: inline;
+  background-color: red; 
+}
+td{
+  float: left ;
+  min-height: 50px;
+  border-style:solid;}
+  .pionb{
+
+  }
+  .piona{
+
+  }
