@@ -1,5 +1,5 @@
 .casenoir{
-  background-color: yellow ; 
+  background-color: black ; 
   display: block;
   width: 50px;
   border-style:solid;
@@ -8,17 +8,28 @@
 table tr td {
   display: block;
   width: 50px;
-
   display: inline;
-  background-color: red; 
+  background-color: white; 
 }
 td{
   float: left ;
   min-height: 50px;
-  border-style:solid;}
+  border-style:solid;
+  }
   .pionb{
 
   }
   .piona{
 
+  }
+  .joueur1
+  {  background-image :  url('../Projet-De-jeu-de-Dames/images.png'); 
+    background-position: center; 
+    display: block;
+     width: 50px;
+    border-style:solid;
+   /* background-color: yellow;*/
+    float: left ;
+
+  
   }
