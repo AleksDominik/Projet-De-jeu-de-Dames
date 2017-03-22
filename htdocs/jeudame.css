@@ -1,0 +1,51 @@
+.casenoir{
+  background-color: yellow ; 
+  display: block;
+  width: 50px;
+  border-style:solid;
+
+} 
+table tr td {
+  display: block;
+  width: 50px;
+
+  display: inline;
+  background-color: red; 
+}
+td{
+  float: left ;
+  min-height: 50px;
+  border-style:solid;}
+  .pionb{
+
+  }
+  .piona{
+
+  }
+  #m{ 
+    border: 2px solid black; 
+    padding: 10px; 
+    width: 40%; 
+    margin: .5%; 
+    position: fixed; 
+    right:8%;
+    bottom: 0;
+  }
+  #send{ 
+    width: 8%; 
+    margin: .5%; 
+    background: rgb(121,2,2);
+    color:white; 
+    padding: 10px; 
+    position: fixed; 
+    bottom: 0;
+    right:0;
+  }
+  #message_block{ 
+    width: 50%;
+    top:0;
+    right: 50%;
+  }
+  #test{overflow:hidden; zoom:1;}
+  .left{width:700px; margin-bottom:-3000px; padding-bottom:3000px; background:#cad5eb; float:left;}
+  .right{height:100%; background:#ffe6b8;}
