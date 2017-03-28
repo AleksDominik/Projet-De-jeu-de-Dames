@@ -26,8 +26,6 @@ var user_count = 0;
 ** socket connection listener
 */
 io.on('connection', function (socket) {
-  console.log('client connected');
-  socket.emit('hello',{'this': 'is my data'});
 
   socket.on('add user', function (username) {
     socket.username = username;
