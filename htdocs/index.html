@@ -13,6 +13,7 @@
 <div class="left">
 <p >voiLA</p>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
    cestaquidejouer=0;// definit le joueur cest a qui de jouer
   var  tableaudecaseclike=new Array;
@@ -26,17 +27,22 @@
     if (cestaquidejouer%2==1 && joueur2.pion.includes(coupdepart) && isdeplacer(coupdepart,coupdarrivee)  ){c=joueur2.pion.indexOf(coupdepart); joueur2.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur2"); 
     d=joueur2.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur2");   ++cestaquidejouer; tableaudecaseclike=[]; return }
 
-
-    if (cestaquidejouer%2==0 && joueur1.pion.includes(coupdepart) && iseliminer(coupdepart,coupdarrivee) ){ c=joueur1.pion.indexOf(coupdepart); joueur1.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur1"); 
-    d=joueur1.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur1");
+//trouver coupeliminer
     if(coupdepart<=10&&coupdepart>5 || coupdepart<=20&&coupdepart>15 || coupdepart<=30&&coupdepart>25 || coupdepart<=40&&coupdepart>35|| coupdepart<=50&&coupdepart>45 ){
       coupeliminer=  (parseInt(coupdepart)+parseInt(coupdarrivee)+1)/2;
     }
     else
       coupeliminer= (parseInt(coupdepart)+parseInt(coupdarrivee)-1)/2;
+
+    if (cestaquidejouer%2==0 && joueur1.pion.includes(coupdepart) && iseliminer(coupdepart,coupdarrivee) && joueur2.pion.includes(coupeliminer.toString())){ c=joueur1.pion.indexOf(coupdepart); joueur1.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur1"); 
+    d=joueur1.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur1");
+    
     c2=joueur2.pion.indexOf(coupeliminer);joueur2.pion.splice(c2,1); $(document.getElementById(coupeliminer)).removeClass("joueur2");   ++cestaquidejouer;tableaudecaseclike=[]; return }
-    if (cestaquidejouer%2==1 && joueur2.pion.includes(coupdepart) && iseliminer(coupdepart,coupdarrivee)  ){c=joueur2.pion.indexOf(coupdepart); joueur2.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur2"); 
-    d=joueur2.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur2");coupeliminer= (coupdepart+coupdarrivee)/2;c2=joueur1.pion.indexOf(coupeliminer);joueur1.pion.splice(c2,1); $(document.getElementById(coupeliminer)).removeClass("joueur1");   ++cestaquidejouer; tableaudecaseclike=[]; returns}
+
+
+    if (cestaquidejouer%2==1 && joueur2.pion.includes(coupdepart) && iseliminer(coupdepart,coupdarrivee) && joueur1.pion.includes(coupeliminer.toString()) ){c=joueur2.pion.indexOf(coupdepart); joueur2.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur2"); 
+    d=joueur2.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur2");
+    c2=joueur1.pion.indexOf(coupeliminer);joueur1.pion.splice(c2,1); $(document.getElementById(coupeliminer)).removeClass("joueur1");   ++cestaquidejouer; tableaudecaseclike=[]; return}
   }
 
   function isdeplacer(coupdepart,coupdarrivee)
