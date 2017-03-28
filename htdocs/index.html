@@ -13,41 +13,114 @@
 <div class="left">
 <p >voiLA</p>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
+   cestaquidejouer=0;// definit le joueur cest a qui de jouer
+  var  tableaudecaseclike=new Array;
+  function joueur(joueur1){this.nom=joueur; this.pion=new Array;}; 
+  joueur1= new joueur('joueur1');
+  joueur2=new joueur('joueur2');
+  function deplacerpion(coupdepart,coupdarrivee)
+  { 
+    if (cestaquidejouer%2==0 && joueur1.pion.includes(coupdepart) && isdeplacer(coupdepart,coupdarrivee) ){ c=joueur1.pion.indexOf(coupdepart); joueur1.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur1"); 
+    d=joueur1.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur1");   ++cestaquidejouer;tableaudecaseclike=[]; return };
+    if (cestaquidejouer%2==1 && joueur2.pion.includes(coupdepart) && isdeplacer(coupdepart,coupdarrivee)  ){c=joueur2.pion.indexOf(coupdepart); joueur2.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur2"); 
+    d=joueur2.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur2");   ++cestaquidejouer; tableaudecaseclike=[]; return }
+
+
+    if (cestaquidejouer%2==0 && joueur1.pion.includes(coupdepart) && iseliminer(coupdepart,coupdarrivee) ){ c=joueur1.pion.indexOf(coupdepart); joueur1.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur1"); 
+    d=joueur1.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur1");
+    if(coupdepart<=10&&coupdepart>5 || coupdepart<=20&&coupdepart>15 || coupdepart<=30&&coupdepart>25 || coupdepart<=40&&coupdepart>35|| coupdepart<=50&&coupdepart>45 ){
+      coupeliminer=  (parseInt(coupdepart)+parseInt(coupdarrivee)+1)/2;
+    }
+    else
+      coupeliminer= (parseInt(coupdepart)+parseInt(coupdarrivee)-1)/2;
+    c2=joueur2.pion.indexOf(coupeliminer);joueur2.pion.splice(c2,1); $(document.getElementById(coupeliminer)).removeClass("joueur2");   ++cestaquidejouer;tableaudecaseclike=[]; return }
+    if (cestaquidejouer%2==1 && joueur2.pion.includes(coupdepart) && iseliminer(coupdepart,coupdarrivee)  ){c=joueur2.pion.indexOf(coupdepart); joueur2.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur2"); 
+    d=joueur2.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur2");coupeliminer= (coupdepart+coupdarrivee)/2;c2=joueur1.pion.indexOf(coupeliminer);joueur1.pion.splice(c2,1); $(document.getElementById(coupeliminer)).removeClass("joueur1");   ++cestaquidejouer; tableaudecaseclike=[]; returns}
+  }
+
+  function isdeplacer(coupdepart,coupdarrivee)
+  {
+    if(!$(document.getElementById(coupdarrivee)).hasClass("joueur1") && !$(document.getElementById(coupdarrivee)).hasClass("joueur2")){
+      if(coupdepart<=5 && (coupdarrivee-coupdepart==4 || coupdarrivee-coupdepart==5))
+        return 1;
+      if((coupdepart<=10&&coupdepart>5 || coupdepart<=20&&coupdepart>15 || coupdepart<=30&&coupdepart>25 || coupdepart<=40&&coupdepart>35 ) && (coupdarrivee-coupdepart==5 || coupdarrivee-coupdepart==6|| coupdarrivee-coupdepart==-5 || coupdarrivee-coupdepart==-4))
+        return 1;
+      if((coupdepart<=15&&coupdepart>10 || coupdepart<=25&&coupdepart>20 || coupdepart<=35&&coupdepart>30 || coupdepart<=45&&coupdepart>40 ) && (coupdarrivee-coupdepart==5 || coupdarrivee-coupdepart==4 || coupdarrivee-coupdepart==-5 || coupdarrivee-coupdepart==-6))
+        return 1;
+      if(coupdepart>45 && (coupdarrivee-coupdepart==-5 || coupdarrivee-coupdepart==-4))
+        return 1;
+    }
+    else 
+      return 0;
+  }
+
+  function iseliminer(coupdepart,coupdarrivee)
+  {
+
+    if(!$(document.getElementById(coupdarrivee)).hasClass("joueur1") && !$(document.getElementById(coupdarrivee)).hasClass("joueur2")){
+      if(coupdepart<=10 && (coupdarrivee-coupdepart==9 || coupdarrivee-coupdepart==11))
+        return 1;
+      if((coupdepart<=40&&coupdepart>10) && (coupdarrivee-coupdepart==9 || coupdarrivee-coupdepart==11|| coupdarrivee-coupdepart==-9 || coupdarrivee-coupdepart==-11))
+        return 1;
+      if(coupdepart>40 && (coupdarrivee-coupdepart==-9 || coupdarrivee-coupdepart==-11))
+        return 1;
+    }
+    else 
+      return 0;
+
+  }
+
+
+  //creation des noeuds de jeu 
+   function noeud(premeca,deiemeca,occup){
+    this.premierecase= premeca; this.deuxiemecase=deiemeca; this.occupation=occup;}
+
 $(document).ready(function(){
- 
         $.each([0,1,2,3,4,5],function(n){$('tr:nth-child(2n) td:nth-child(2n+1)').
-        	addClass("casenoir");$('tr:nth-child(2n+1) td:nth-child(2n)').addClass("casenoir")});
-        $('tr:nth-child(2) td:nth-child(5)').css('backgroundColor','green').on('click',function(){$(this).css( 'backgroundColor','yellow')});
-        $("td, tr").click(function(event){
-        $("p").html("Triggered by a " + event.target.nodeName + " element.")});
+          addClass("casenoir");$('tr:nth-child(2n+1) td:nth-child(2n)').addClass("casenoir")});//initialisation du fond     
         var inc=0;
+        //mise en place de lenvironnement
        for (var j= 1; j <= 10; j++) { 
-         var u=(inc%2)+1;
-       	for (var i =u ; i <= 10; i+=2) {
-       		
+          var u=(inc%2)+1;
+          for (var i =u ; i <= 10; i+=2) {
+          var g=i;
+          var d=j;
+          inc++;g.toString();d.toString();
+          var dd='tr:nth-child('+d+') td:nth-child('+g+')';
+          $(dd).attr("id", inc.toString()).on('click', function(){
+                            if(tableaudecaseclike.length>=2){$(document.getElementById(tableaudecaseclike[0])).removeClass("selected");
+                                                               $(document.getElementById(tableaudecaseclike[1])).removeClass("selected");          
+                                                                tableaudecaseclike=[]; tableaudecaseclike.push(this.id);
+                                                                 $(document.getElementById(tableaudecaseclike[0])).addClass("selected") ; return };
+                             if ( tableaudecaseclike.length==0){ tableaudecaseclike.push(this.id);$(document.getElementById(tableaudecaseclike[0])).addClass("selected");return                  
+                                     }
+                               if( tableaudecaseclike.length==1){tableaudecaseclike.push(this.id); $(document.getElementById(tableaudecaseclike[0])).removeClass("selected"); $(document.getElementById(tableaudecaseclike[1])).removeClass("selected");                                         }      
+                                   });
+          $(dd).on('click',function(){ if(tableaudecaseclike.length==2){deplacerpion(tableaudecaseclike[0],tableaudecaseclike[1]),$("p").html("cest qu jour"+cestaquidejouer) }}) ;
+          if ( j<=4){ joueur1.pion.push(inc.toString())};//initialise le tableau du joueur 1
+          if ( j>=7 ){ joueur2.pion.push(inc.toString())};
+          if ( j%5>1){    }
 
-       		var g=i;
-       		var d=j;
-       		var mul=(j-1)*10+inc;
-       		inc++;g.toString();d.toString();
-       		var dd='tr:nth-child('+d+') td:nth-child('+g+')';
-       		
+          //permet de recup l´id en un click sur la case 
+          $(dd).html(inc).css('font-color','white')
+            };
+         };
+    
 
-       		$(dd).html(inc).css('font-color','white')};};
+
+        $.each(joueur1.pion, function(j){$(document.getElementById(joueur1.pion[j])).addClass("joueur1" )});
+        $.each(joueur2.pion, function(j){$(document.getElementById(joueur2.pion[j])).addClass("joueur2" )});
+       
+       
+
+        
        
         
         
 
     
-});
-/*var Myelement=document.getElementsByTagName('td');
-$(Myelement).addClass('casenoir');*/
-          
-	/*$('table td tr :nth-child(2n)').addClass('casenoir');
-	$('table td tr :nth-child(2n+1)').addClass('casenoir');*/
-
+}); 
 </script>
 
 
