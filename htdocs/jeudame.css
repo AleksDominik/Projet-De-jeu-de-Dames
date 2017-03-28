@@ -1,5 +1,5 @@
 .casenoir{
-  background-color: yellow ; 
+  background-color: black ; 
   display: block;
   width: 50px;
   border-style:solid;
@@ -10,18 +10,37 @@ table tr td {
   width: 50px;
 
   display: inline;
-  background-color: red; 
+  background-color: white; 
 }
 td{
   float: left ;
   min-height: 50px;
   border-style:solid;}
-  .pionb{
+ 
+ .joueur1
+  {  /*background-image :  url('../images/images.png'); */
+    background-position: center; 
+    display: block;
+     width: 50px;
+    border-style:solid;
+    background-color: yellow;
+    float: left ;}
+ .joueur2
+  {  /*background-image :  url('../images/fleurs.png'); */
+    background-position: center; 
+    display: block;
+     width: 50px;
+    border-style:solid;
+    background-color: red;
+    float: left ;}
+.selected{
+  border-color: red;
+}
 
-  }
-  .piona{
+/******************************************************************/
 
-  }
+
+
   #m{ 
     border: 2px solid black; 
     padding: 10px; 

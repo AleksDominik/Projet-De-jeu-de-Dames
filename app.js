@@ -51,4 +51,10 @@ io.on('connection', function (socket) {
     });
   });
 
+  socket.on('deplacer', function (data) {
+    io.emit('deplacer', {
+      message: data,
+    });
+  });
+
 });
