@@ -18,7 +18,7 @@ td{
   border-style:solid;}
  
  .joueur1
-  {  /*background-image :  url('../images/images.png'); */
+  {  background-image :  url('../images/images.png'); 
     background-position: center; 
     display: block;
      width: 50px;
@@ -26,13 +26,14 @@ td{
     background-color: yellow;
     float: left ;}
  .joueur2
-  {  /*background-image :  url('../images/fleurs.png'); */
+  {  background-image :  url('../images/fleurs.png'); 
     background-position: center; 
     display: block;
      width: 50px;
     border-style:solid;
     background-color: red;
-    float: left ;}
+    float: left ;
+  }
 .selected{
   border-color: red;
 }
