@@ -9,11 +9,9 @@
 </head>
 
 <body>
-<div id="test">
-<div class="left">
-<p >voiLA</p>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
+
 <script type="text/javascript">
    cestaquidejouer=0;// definit le joueur cest a qui de jouer
   var  tableaudecaseclike=new Array;
@@ -143,8 +141,16 @@ $(document).ready(function(){
 }); 
 </script>
 
+<p >voiLA</p>
+
 <div id="container">
-<table >
+ <div class="right">
+    <ul id="messages">hello!!!!!!</ul>
+          <input id="m" autocomplete="off" /><button id="send">Send</button>
+
+   </div>
+ 
+ <table >
 
 <tr><td> </td> <td>  </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
 <tr><td> </td> <td>  </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
@@ -157,16 +163,16 @@ $(document).ready(function(){
 <tr><td> </td> <td>  </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
 <tr><td> </td> <td>  </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
 </table>
+ <div id="test">
+        <div class="left">
+             </div>
+         </div>
+ 
+</div>
 
-</div>
-<div class="right">
-<p id=dropzone />
-<ul id="messages">hello!!!!!!</ul>
-<input id="m" autocomplete="off" /><button id="send">Send</button>
-</div>
-</div>
-<div>
 </body>
+
+
 
 <script>
 var socket = io.connect('http://localhost:8080'); // émission 'connection'

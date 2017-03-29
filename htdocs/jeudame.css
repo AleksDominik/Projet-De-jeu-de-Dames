@@ -7,14 +7,14 @@
 } 
 table tr td {
   display: block;
-  width: 50px;
-
+  width: 10%;
   display: inline;
   background-color: white; 
 }
 td{
   float: left ;
-  min-height: 50px;
+  height: 50px;
+
   border-style:solid;}
  
  .joueur1
@@ -40,6 +40,7 @@ td{
 /******************************************************************/
 #container{
 margin: auto ;
+width: 100%;
 
 }
 
@@ -70,4 +71,4 @@ margin: auto ;
   }
   #test{overflow:hidden; zoom:1;}
   .left{width:700px; margin-bottom:-3000px; padding-bottom:3000px; background:#cad5eb; float:left;}
-  .right{height:100%; background:#ffe6b8;}
+  .right{height:100%; background:#ffe6b8;float: right; width: 40%}
