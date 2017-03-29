@@ -1,14 +1,21 @@
 .casenoir{
   background-color: black ; 
   display: block;
-  width: 50px;
+ width: 9%;
+  height: 9%;
   border-style:solid;
 
 } 
+table{
+width: 65%;
+
+}
+
+
 table tr td {
   display: block;
-  width: 50px;
-
+  width: 9%;
+  height: 9%;
   display: inline;
   background-color: white; 
 }
@@ -21,7 +28,9 @@ td{
   {  background-image :  url('../images/images.png'); 
     background-position: center; 
     display: block;
-     width: 50px;
+    width: 9%;
+  height: 9%;
+  
     border-style:solid;
     /*background-color: yellow;*/
     float: left ;}
@@ -29,7 +38,8 @@ td{
   {  background-image :  url('../images/fleurs.png'); 
     background-position: center; 
     display: block;
-     width: 50px;
+   width: 9%;
+  height: 9%;
     border-style:solid;
     /*background-color: red;*/
     float: left ;}
@@ -48,15 +58,15 @@ width: 100%;
   #m{ 
     border: 2px solid black; 
     padding: 10px; 
-    width: 40%; 
-    margin: .5%; 
+    width: 29%; 
+    margin: 1%; 
     position: fixed; 
-    right:8%;
+    right:5%;
     bottom: 0;
   }
   #send{ 
-    width: 8%; 
-    margin: .5%; 
+    width: 5%; 
+    margin: 0.5%; 
     background: rgb(121,2,2);
     color:white; 
     padding: 10px; 
@@ -64,11 +74,17 @@ width: 100%;
     bottom: 0;
     right:0;
   }
+#messages{
+width: 35%;
+
+}
+
+
   #message_block{ 
-    width: 50%;
+    width: 35%;
     top:0;
     right: 50%;
   }
   #test{overflow:hidden; zoom:1;}
   .left{width:700px; margin-bottom:-3000px; padding-bottom:3000px; background:#cad5eb; float:left;}
-  .right{height:100%; background:#ffe6b8;float: right; width: 40%}
+  .right{height:100%; background:#ffe6b8;float: right; width: 35%}
