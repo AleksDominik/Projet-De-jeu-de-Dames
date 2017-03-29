@@ -23,7 +23,7 @@ td{
     display: block;
      width: 50px;
     border-style:solid;
-    background-color: yellow;
+    /*background-color: yellow;*/
     float: left ;}
  .joueur2
   {  background-image :  url('../images/fleurs.png'); 
@@ -31,9 +31,8 @@ td{
     display: block;
      width: 50px;
     border-style:solid;
-    background-color: red;
-    float: left ;
-  }
+    /*background-color: red;*/
+    float: left ;}
 .selected{
   border-color: red;
 }

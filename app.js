@@ -19,7 +19,6 @@ app.use(serveStatic('htdocs'));
 /*
 ** start server
 */
-
 server.listen(port);
 var user_count = 0;
 
@@ -27,6 +26,7 @@ var user_count = 0;
 ** socket connection listener
 */
 io.on('connection', function (socket) {
+  console.log('client connected');
 
   socket.on('add user', function (username) {
     socket.username = username;
@@ -46,6 +46,12 @@ io.on('connection', function (socket) {
   socket.on('chat message', function (data) {
     io.emit('chat message', {
       username: socket.username,
+      message: data
+    });
+  });
+
+  socket.on('game message', function (data) {
+    io.emit('game message', {
       message: data
     });
   });

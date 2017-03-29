@@ -11,6 +11,7 @@
 <body>
 <div id="test">
 <div class="left">
+<p >voiLA</p>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
@@ -18,13 +19,17 @@
   var  tableaudecaseclike=new Array;
   function joueur(joueur1){this.nom=joueur; this.pion=new Array;}; 
   joueur1= new joueur('joueur1');
-  joueur2=new joueur('joueur2');
+  joueur2= new joueur('joueur2');
   function deplacerpion(coupdepart,coupdarrivee)
   { 
-    if (cestaquidejouer%2==0 && joueur1.pion.includes(coupdepart) && isdeplacer(coupdepart,coupdarrivee) ){ c=joueur1.pion.indexOf(coupdepart); joueur1.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur1"); 
-    d=joueur1.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur1");   ++cestaquidejouer;tableaudecaseclike=[]; return };
+    if (cestaquidejouer%2==0 && joueur1.pion.includes(coupdepart) && isdeplacer(coupdepart,coupdarrivee,cestaquidejouer) ){ c=joueur1.pion.indexOf(coupdepart); joueur1.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur1"); 
+    d=joueur1.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur1");   ++cestaquidejouer;tableaudecaseclike=[]; 
+    //socket.emit('game message', "C'est à joueur2 de jouer!");
+    return };
     if (cestaquidejouer%2==1 && joueur2.pion.includes(coupdepart) && isdeplacer(coupdepart,coupdarrivee)  ){c=joueur2.pion.indexOf(coupdepart); joueur2.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur2"); 
-    d=joueur2.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur2");   ++cestaquidejouer; tableaudecaseclike=[]; return }
+    d=joueur2.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur2");   ++cestaquidejouer; tableaudecaseclike=[]; 
+    //socket.emit('game message', "C'est à joueur1 de jouer!");
+    return }
 
 //trouver coupeliminer
     if(coupdepart<=10&&coupdepart>5 || coupdepart<=20&&coupdepart>15 || coupdepart<=30&&coupdepart>25 || coupdepart<=40&&coupdepart>35|| coupdepart<=50&&coupdepart>45 ){
@@ -36,18 +41,22 @@
     if (cestaquidejouer%2==0 && joueur1.pion.includes(coupdepart) && iseliminer(coupdepart,coupdarrivee) && joueur2.pion.includes(coupeliminer.toString())){ c=joueur1.pion.indexOf(coupdepart); joueur1.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur1"); 
     d=joueur1.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur1");
     
-    c2=joueur2.pion.indexOf(coupeliminer);joueur2.pion.splice(c2,1); $(document.getElementById(coupeliminer)).removeClass("joueur2");   ++cestaquidejouer;tableaudecaseclike=[]; return }
+    c2=joueur2.pion.indexOf(coupeliminer);joueur2.pion.splice(c2,1); $(document.getElementById(coupeliminer)).removeClass("joueur2");   ++cestaquidejouer;tableaudecaseclike=[]; 
+    //socket.emit('game message', "C'est à joueur2 de jouer!");
+    return }
 
 
     if (cestaquidejouer%2==1 && joueur2.pion.includes(coupdepart) && iseliminer(coupdepart,coupdarrivee) && joueur1.pion.includes(coupeliminer.toString()) ){c=joueur2.pion.indexOf(coupdepart); joueur2.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur2"); 
     d=joueur2.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur2");
-    c2=joueur1.pion.indexOf(coupeliminer);joueur1.pion.splice(c2,1); $(document.getElementById(coupeliminer)).removeClass("joueur1");   ++cestaquidejouer; tableaudecaseclike=[]; return}
+    c2=joueur1.pion.indexOf(coupeliminer);joueur1.pion.splice(c2,1); $(document.getElementById(coupeliminer)).removeClass("joueur1");   ++cestaquidejouer; tableaudecaseclike=[]; 
+    //socket.emit('game message', "C'est à joueur1 de jouer!"); 
+    return}
   }
 
-  function isdeplacer(coupdepart,coupdarrivee)
+  function isdeplacer(coupdepart,coupdarrivee,cestaquidejouer)
   {
     if(!$(document.getElementById(coupdarrivee)).hasClass("joueur1") && !$(document.getElementById(coupdarrivee)).hasClass("joueur2")){
-      if(coupdepart<=5 && (coupdarrivee-coupdepart==4 || coupdarrivee-coupdepart==5))
+     if(coupdepart<=5 && (coupdarrivee-coupdepart==4 || coupdarrivee-coupdepart==5) && cestaquidejouer%2==0 )
         return 1;
       if((coupdepart<=10&&coupdepart>5 || coupdepart<=20&&coupdepart>15 || coupdepart<=30&&coupdepart>25 || coupdepart<=40&&coupdepart>35 ) && (coupdarrivee-coupdepart==5 || coupdarrivee-coupdepart==6|| coupdarrivee-coupdepart==-5 || coupdarrivee-coupdepart==-4))
         return 1;
@@ -58,6 +67,7 @@
     }
     else 
       return 0;
+
   }
 
   function iseliminer(coupdepart,coupdarrivee)
@@ -104,8 +114,8 @@ $(document).ready(function(){
                                    });
           $(dd).on('click',function(){ 
             if(tableaudecaseclike.length==2){
-             socket.emit('deplacer',tableaudecaseclike[0]+' '+tableaudecaseclike[1]);
-              deplacerpion(tableaudecaseclike[0],tableaudecaseclike[1]),$("p").html("cest au jour"+cestaquidejouer);
+              socket.emit('deplacer',tableaudecaseclike[0]+' '+tableaudecaseclike[1]);
+              deplacerpion(tableaudecaseclike[0],tableaudecaseclike[1]),$("p").html("C'est au jour "+cestaquidejouer);
             }
           }) ;
           if ( j<=4){ joueur1.pion.push(inc.toString())};//initialise le tableau du joueur 1
@@ -175,12 +185,20 @@ $(document).ready(function(){
         });
 
       socket.on('chat message', function(data){
-          appendMessage(data.username+":"+data.message);
+          appendMessage(data.username+": "+data.message);
+        });
+
+      socket.on('game message', function(data){
+          appendMessage("GAME PLAY :"+data.message);
         });
 
       socket.on('deplacer', function(data){
         a=data.message.split(" ");
-        deplacerpion(a[0],a[1]),$("p").html("cest au jour"+cestaquidejouer);
+        deplacerpion(a[0],a[1]);
+        if(cestaquidejouer%2==0)
+          $("p").html("C'est au jour "+cestaquidejouer+ " et c'est à joueur1 de jouer!");
+        else
+          $("p").html("C'est au jour "+cestaquidejouer+ " et c'est à joueur2 de jouer!");
         });
 
       $('#send').click(function(){
@@ -203,10 +221,7 @@ $(document).ready(function(){
 
         }
 
-      socket.on('hello', function (data) {              // réception 'hello'
-        dropzone.textContent = 'le serveur me dit : ' + JSON.stringify(data);
 });
-})
 </script>
 
 
