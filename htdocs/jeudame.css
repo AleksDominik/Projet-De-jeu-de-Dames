@@ -7,14 +7,14 @@
 } 
 table tr td {
   display: block;
-  width: 10%;
+  width: 50px;
+
   display: inline;
   background-color: white; 
 }
 td{
   float: left ;
-  height: 50px;
-
+  min-height: 50px;
   border-style:solid;}
  
  .joueur1
