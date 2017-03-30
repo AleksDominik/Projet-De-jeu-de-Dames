@@ -13,19 +13,146 @@
 <script src="/socket.io/socket.io.js"></script>
 
 <script type="text/javascript">
-   cestaquidejouer=0;// definit le joueur cest a qui de jouer
-  var  tableaudecaseclike=new Array;
-  function joueur(joueur1){this.nom=joueur; this.pion=new Array;}; 
+function partie(){
+  this.cestaquidejouer=0;// definit le joueur cest a qui de jouer
+  this.tableaudecaseclike=new Array;
+  this.noeud= [
+ d150=["1","6","12","17","23","28","34","39","45","50"],
+d510=["5","10"],
+d420=["4","9","15","20"],
+d330=["3","8","14","19","25","30"],
+d240=["2","7","13","18","24","29","35","40"],
+d1149=["11","16","22","27","33","38","44","49"],
+d2148=["21","26","32","37","43","48"],
+d3147=["31","36","42","47"],
+d4146=["41","46"],
+
+d211=["2","6","11"],
+d321=["3","7","12","16","21"],
+d431=["4","8","13","17","22","26","31"],
+d541=["5","9","14","18","23","27","32","36","41"],
+d1046=["10","15","19","24","28","33","37","42","46"],
+d2047=["20","25","29","34","38","43","47"],
+d3048=["30","35","39","44","48"],
+d4049=["40","45","49"] ];
+this.name
+
+}
+partie=new partie();
+
+function joueur(joueur1){this.nom=joueur; this.pion=new Array;}; 
   joueur1= new joueur('joueur1');
   joueur2= new joueur('joueur2');
+ 
+function cherchesurdiago(c,s){
+  var tabo=[];
+
+   if(typeof partie.noeud[s][c+2]!=undefined &&  !$(document.getElementById(partie.noeud[s][c+2])).hasClass("joueur2") && !$(document.getElementById(partie.noeud[s][c+1])).hasClass("joueur1") && $(document.getElementById(partie.noeud[s][c+1])).hasClass("joueur2") ) { tabo.push(partie.noeud[s][c+1]) }
+    if(typeof partie.noeud[s][c-2]!=undefined && !$(document.getElementById(partie.noeud[s][c-2])).hasClass("joueur2") && !$(document.getElementById(partie.noeud[s][c-2])  && $(document.getElementById(partie.noeud[s][c-1])).hasClass("joueur2") ).hasClass("joueur1") ){ tabo.push(partie.noeud[s][c-2]) } 
+         return tabo               
+}
+
+
+function cherchesurdiago1(c,s){
+  var tabo1=[];
+
+   if(typeof partie.noeud[s][c+1]!=undefined &&  !$(document.getElementById(partie.noeud[s][c+1])).hasClass("joueur2") && !$(document.getElementById(partie.noeud[s][c+1])).hasClass("joueur1")) { tabo1.push(partie.noeud[s][c+1]) } 
+         return tabo1               
+}
+
+
+function nexttake(coup)
+{
+ var  tabofmove=[] ; 
+   if (partie.cestaquidejouer%2==0) //joueur1qui joue 
+           {  for (var s=0; s< partie.noeud.length ;s++ ) 
+                    { 
+                      if ( partie.noeud[s].includes(coup) && s<=8 ) { var c=partie.noeud[s].indexOf(coup);tabofmove.concat(cherchesurdiago(c,s))}  
+                      if ( partie.noeud[s].includes(coup) && s>8 )  { var c=partie.noeud[s].indexOf(coup); tabofmove.concat(cherchesurdiago(c,s))  }
+                     }
+            }
+  return tabofmove
+  }
+                    
+
+function nextstpmov(coup){
+var  tabofmove=[] ; 
+  if (partie.cestaquidejouer%2==0) //joueur1qui joue 
+           {  
+            for (var s=0; s< partie.noeud.length ;s++ ) 
+                    { if ( partie.noeud[s].includes(coup) && s<=8 ){ var c=partie.noeud[s].indexOf(coup);d=cherchesurdiago1(c,s);tabofmove.concat(d)}
+                            
+                      if ( partie.noeud[s].includes(coup) && s>8 ){ var c=partie.noeud[s].indexOf(coup);d=cherchesurdiago1(c,s);tabofmove.concat(d)}
+                     }
+          }
+ return tabofmove
+ }
+
+
+/*function casesuivant (coup)
+{
+ var retour={d:"", g:" "},casvaldr=[], casvalgh=[];
+       if (cestaquidejouer%2==0) //joueur1qui joue 
+           {  for (var s=0; s< noeud.f.length ;s++ ) 
+                    { if ( noeud.f[s].includes(coup) && s<=8 )
+                        {  var c=noeud.f[s].indexOf(coup)+1;
+                          if ( $(document.getElementById(noeud.f[s][c])).hasClass("joueur2") &&  !$(document.getElementById(noeud.f[s][c+1])).hasClass("joueur2") && !$(document.getElementById(noeud.f[s][c+1])).hasClass("joueur1") )
+                                        { casvaldr.push(noeud.f[s][c+1]) } //joueur adverse rencontré espace suivant libre devant  
+                          if ( $(document.getElementById(noeud.f[s][c-2])).hasClass("joueur2") &&  !$(document.getElementById(noeud.f[s][c-3])).hasClass("joueur2") && !$(document.getElementById(noeud.f[s][c+1])).hasClass("joueur1") )
+                                        { casvaldr.push(noeud.f[s][c+1]) } //joueur adverse rencontré espace suivant libre derriere
+
+                          if(!$(document.getElementById(noeud.f[s][c])).hasClass("joueur2") && !$(document.getElementById(noeud.f[s][c])).hasClass("joueur1") ) {casvaldr.push(noeud.f[s][c+1]) } //personne est rencontre
+                           
+                         if (noeud.f[s].includes(coup) && s>8) {c=noeud.f[s].indexOf(coup)+1;
+                         if ( $(document.getElementById(noeud.f[s][c])).hasClass("joueur2") &&  !$(document.getElementById(noeud.f[s][c+1])).hasClass("joueur2") && !$(document.getElementById(noeud.f[s][c+1])).hasClass("joueur1") ){ casvalgh.push(noeud.f[s][c+1]) } }
+                    }
+          }  }
+if (cestaquidejouer%2==1) //joueur1qui joue 
+           {   for (var s=0; s< noeud.f.length ;s++ ) 
+                    { if ( noeud.f[s].includes(coup))
+                        {  if( s<=8){
+                             c=noeud.f[s].indexOf(coup)-1;
+                              retour["g"]=noeud.f[s];
+                               }
+                             if (s>8) 
+                             {
+                              c=noeud.f[s].indexOf(coup)-1;
+                              retour["d"]=noeud.f[s];
+                             } 
+                           
+                            }
+                     }
+            };
+return [casvaldr,casvalgh]
+}*/
+
+
+ /*function coupajouer (coup){
+     ddd={coupvalable:[],coupadverse:""  };
+    var com=casesuivant(coup);
+    var ily=true;
+  
+     // var droite= com[], gauche= com[1];
+      while(  ily ){
+        if( !$( document.getElementById(com["d"])).hasClass(joueur1) && !$(document.getElementById(com["g"])).hasClass(joueur1)     )
+          {ddd["coupvalable"].push(com["d"]);ddd["coupvalable"].push(com["g"]) }
+        if( $( document.getElementById(com["d"])).hasClass(joueur1){    }
+
+      }
+  }*/
+
+
+
+
+
   function deplacerpion(coupdepart,coupdarrivee)
   { 
-    if (cestaquidejouer%2==0 && joueur1.pion.includes(coupdepart) && isdeplacer(coupdepart,coupdarrivee,cestaquidejouer) ){ c=joueur1.pion.indexOf(coupdepart); joueur1.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur1"); 
-    d=joueur1.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur1");   ++cestaquidejouer;tableaudecaseclike=[]; 
+    if (partie.cestaquidejouer%2==0 && joueur1.pion.includes(coupdepart) && isdeplacer(coupdepart,coupdarrivee) ){ c=joueur1.pion.indexOf(coupdepart); joueur1.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur1"); 
+    d=joueur1.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur1");   ++partie.cestaquidejouer;partie.tableaudecaseclike=[]; 
     //socket.emit('game message', "C'est à joueur2 de jouer!");
     return };
-    if (cestaquidejouer%2==1 && joueur2.pion.includes(coupdepart) && isdeplacer(coupdepart,coupdarrivee)  ){c=joueur2.pion.indexOf(coupdepart); joueur2.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur2"); 
-    d=joueur2.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur2");   ++cestaquidejouer; tableaudecaseclike=[]; 
+    if (partie.cestaquidejouer%2==1 && joueur2.pion.includes(coupdepart) && isdeplacer(coupdepart,coupdarrivee)  ){c=joueur2.pion.indexOf(coupdepart); joueur2.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur2"); 
+    d=joueur2.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur2");   ++partie.cestaquidejouer; partie.tableaudecaseclike=[]; 
     //socket.emit('game message', "C'est à joueur1 de jouer!");
     return }
 
@@ -36,25 +163,25 @@
     else
       coupeliminer= (parseInt(coupdepart)+parseInt(coupdarrivee)-1)/2;
 
-    if (cestaquidejouer%2==0 && joueur1.pion.includes(coupdepart) && iseliminer(coupdepart,coupdarrivee) && joueur2.pion.includes(coupeliminer.toString())){ c=joueur1.pion.indexOf(coupdepart); joueur1.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur1"); 
+    if (partie.cestaquidejouer%2==0 && joueur1.pion.includes(coupdepart) && iseliminer(coupdepart,coupdarrivee) && joueur2.pion.includes(coupeliminer.toString())){ c=joueur1.pion.indexOf(coupdepart); joueur1.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur1"); 
     d=joueur1.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur1");
     
-    c2=joueur2.pion.indexOf(coupeliminer);joueur2.pion.splice(c2,1); $(document.getElementById(coupeliminer)).removeClass("joueur2");   ++cestaquidejouer;tableaudecaseclike=[]; 
+    c2=joueur2.pion.indexOf(coupeliminer);joueur2.pion.splice(c2,1); $(document.getElementById(coupeliminer)).removeClass("joueur2");   ++partie.cestaquidejouer;partie.tableaudecaseclike=[]; 
     //socket.emit('game message', "C'est à joueur2 de jouer!");
     return }
 
 
-    if (cestaquidejouer%2==1 && joueur2.pion.includes(coupdepart) && iseliminer(coupdepart,coupdarrivee) && joueur1.pion.includes(coupeliminer.toString()) ){c=joueur2.pion.indexOf(coupdepart); joueur2.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur2"); 
+    if (partie.cestaquidejouer%2==1 && joueur2.pion.includes(coupdepart) && iseliminer(coupdepart,coupdarrivee) && joueur1.pion.includes(coupeliminer.toString()) ){c=joueur2.pion.indexOf(coupdepart); joueur2.pion.splice(c,1); $(document.getElementById(coupdepart)).removeClass("joueur2"); 
     d=joueur2.pion.push(coupdarrivee); $(document.getElementById(coupdarrivee)).addClass("joueur2");
-    c2=joueur1.pion.indexOf(coupeliminer);joueur1.pion.splice(c2,1); $(document.getElementById(coupeliminer)).removeClass("joueur1");   ++cestaquidejouer; tableaudecaseclike=[]; 
+    c2=joueur1.pion.indexOf(coupeliminer);joueur1.pion.splice(c2,1); $(document.getElementById(coupeliminer)).removeClass("joueur1");   ++partie.cestaquidejouer; partie.tableaudecaseclike=[]; 
     //socket.emit('game message', "C'est à joueur1 de jouer!"); 
     return}
   }
 
-  function isdeplacer(coupdepart,coupdarrivee,cestaquidejouer)
+  function isdeplacer(coupdepart,coupdarrivee)
   {
     if(!$(document.getElementById(coupdarrivee)).hasClass("joueur1") && !$(document.getElementById(coupdarrivee)).hasClass("joueur2")){
-     if(coupdepart<=5 && (coupdarrivee-coupdepart==4 || coupdarrivee-coupdepart==5) && cestaquidejouer%2==0 )
+     if(coupdepart<=5 && (coupdarrivee-coupdepart==4 || coupdarrivee-coupdepart==5) && partie.cestaquidejouer%2==0 )
         return 1;
       if((coupdepart<=10&&coupdepart>5 || coupdepart<=20&&coupdepart>15 || coupdepart<=30&&coupdepart>25 || coupdepart<=40&&coupdepart>35 ) && (coupdarrivee-coupdepart==5 || coupdarrivee-coupdepart==6|| coupdarrivee-coupdepart==-5 || coupdarrivee-coupdepart==-4))
         return 1;
@@ -102,18 +229,18 @@ $(document).ready(function(){
           inc++;g.toString();d.toString();
           var dd='tr:nth-child('+d+') td:nth-child('+g+')';
           $(dd).attr("id", inc.toString()).on('click', function(){
-                            if(tableaudecaseclike.length>=2){$(document.getElementById(tableaudecaseclike[0])).removeClass("selected");
-                                                               $(document.getElementById(tableaudecaseclike[1])).removeClass("selected");          
-                                                                tableaudecaseclike=[]; tableaudecaseclike.push(this.id);
-                                                                 $(document.getElementById(tableaudecaseclike[0])).addClass("selected") ; return };
-                             if ( tableaudecaseclike.length==0){ tableaudecaseclike.push(this.id);$(document.getElementById(tableaudecaseclike[0])).addClass("selected");return                  
+                            if(partie.tableaudecaseclike.length>=2){$(document.getElementById(partie.tableaudecaseclike[0])).removeClass("selected");
+                                                               $(document.getElementById(partie.tableaudecaseclike[1])).removeClass("selected");          
+                                                                partie.tableaudecaseclike=[]; partie.tableaudecaseclike.push(this.id);
+                                                                 $(document.getElementById(partie.tableaudecaseclike[0])).addClass("selected") ; return };
+                             if ( partie.tableaudecaseclike.length==0){ partie.tableaudecaseclike.push(this.id);$(document.getElementById(partie.tableaudecaseclike[0])).addClass("selected");return                  
                                      }
-                               if( tableaudecaseclike.length==1){tableaudecaseclike.push(this.id); $(document.getElementById(tableaudecaseclike[0])).removeClass("selected"); $(document.getElementById(tableaudecaseclike[1])).removeClass("selected");                                         }      
+                               if( partie.tableaudecaseclike.length==1){partie.tableaudecaseclike.push(this.id); $(document.getElementById(partie.tableaudecaseclike[0])).removeClass("selected"); $(document.getElementById(partie.tableaudecaseclike[1])).removeClass("selected");                                         }      
                                    });
           $(dd).on('click',function(){ 
-            if(tableaudecaseclike.length==2){
-              socket.emit('deplacer',tableaudecaseclike[0]+' '+tableaudecaseclike[1]);
-              deplacerpion(tableaudecaseclike[0],tableaudecaseclike[1]),$("p").html("C'est au jour "+cestaquidejouer);
+            if(partie.tableaudecaseclike.length==2){
+              socket.emit('deplacer',partie.tableaudecaseclike[0]+' '+partie.tableaudecaseclike[1]);
+              deplacerpion(partie.tableaudecaseclike[0],partie.tableaudecaseclike[1]),$("p").html("C'est au jour "+partie.cestaquidejouer);
             }
           }) ;
           if ( j<=4){ joueur1.pion.push(inc.toString())};//initialise le tableau du joueur 1
@@ -202,10 +329,10 @@ $(document).ready(function(){
       socket.on('deplacer', function(data){
         a=data.message.split(" ");
         deplacerpion(a[0],a[1]);
-        if(cestaquidejouer%2==0)
-          $("p").html("C'est au jour "+cestaquidejouer+ " et c'est à joueur1 de jouer!");
+        if(partie.cestaquidejouer%2==0)
+          $("p").html("C'est au jour "+partie.cestaquidejouer+ " et c'est à joueur1 de jouer!");
         else
-          $("p").html("C'est au jour "+cestaquidejouer+ " et c'est à joueur2 de jouer!");
+          $("p").html("C'est au jour "+partie.cestaquidejouer+ " et c'est à joueur2 de jouer!");
         });
 
       $('#send').click(function(){
