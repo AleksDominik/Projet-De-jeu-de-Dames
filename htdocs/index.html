@@ -45,12 +45,13 @@ function coupObj(){
    this.coup_de_depart;
    this.coup_darrive;
    this.pion_pris=new Array;
-   this.;
+   this.tabactu=new Array ;
+
       }
   c= new coupObj();
 
 function joueur(joueur){this.nom=joueur; this.pion=new Array;}; 
-  joueur1= new joueur('joueur1');tabactu
+  joueur1= new joueur('joueur1');
   joueur2= new joueur('joueur2');
  
 function cherchesurdiago(c,s){
@@ -132,7 +133,7 @@ for (var i = 0; i< coupvalable[0].length; i++) //um peut commee une phase d'init
 { 
     Liste_des_coup.push(new coupObj()); Liste_des_coup[i].coup_de_depart=coup; Liste_des_coup[i].pion_pris=[coupvalable[1][i]];Liste_des_coup[i].coup_darrive=coupvalable[0][i];
      for (var v =0; v <Liste_des_coup[i].pion_pris; v++) {
-       inda=partie.pionpresent[0].indexOf(Liste_des_coup[inda].pion_pris[v]); tabmanip.splice(inda,1); Liste_des_coup[i].tabactu=tabmanip
+       inda=partie.pionpresent [0].indexOf(Liste_des_coup[inda].pion_pris[v]); tabmanip.splice(inda,1); Liste_des_coup[i].tabactu=tabmanip
      }
                       }
 for (var j=0;j<Liste_des_coup.length;j++){
