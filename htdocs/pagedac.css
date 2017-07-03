@@ -1,0 +1,30 @@
+.boutton{
+ 
+ border-style: solid;
+ border-width: 3px;
+ border-color:blue;
+ 
+ padding: 45px;
+background-color:#376666;
+border-radius: 4px;
+
+}
+#container
+{ 
+ width:500px;
+ height: 500px;
+ margin:auto;
+
+
+
+}
+#container2
+{ width: 100%
+	margin:auto;
+	background-color: #7ccb14;
+	height: 100%
+
+
+}
+ul{
+}
