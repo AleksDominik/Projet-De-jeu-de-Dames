@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <link rel="stylesheet" type="text/css" href="pagedac.css">
+	<title>
+		Accueil
+	</title>
+</head>
+<script >
+var connect = require('connect'),  http = require('http')
+  , server = http.createServer(app)
+  , io = require('socket.io').listen(server)
+  , port = 8080,app = connect(),socket = io.connect();
+$(document).ready(function(){
+$(document.getElementById('nouvellepartie')).on('click',   function(){ socket.emit('nouvellepartie')}  )
+
+
+})
+
+</script>
+
+
+
+
+<body>
+
+<div id=container>
+ <div id="container2">
+  <ul style="margin-left:50px">
+	<il >  <button id="nouvellepartie" class="boutton">Nouvelle Partie</button></il>
+	<il> <a href="./jeu.html"><button class="boutton"> </button></il></a> 
+
+   </ul>
+</div>
+
+</div>
+
+
+
+
+</body>
+</html>
