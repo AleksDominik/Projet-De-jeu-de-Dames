@@ -1,5 +1,5 @@
 .casenoir{
-  background-color: black ; 
+  background-color: #1f100a ; 
   display: block;
  width: 9%;
   height: 9%;
@@ -7,10 +7,9 @@
 
 } 
 table{
-width: 65%;
+width: 100%;
 
 }
-
 
 table tr td {
   display: block;
@@ -48,34 +47,23 @@ td{
 }
 
 /******************************************************************/
-#container{
-margin: auto ;
-width: 100%;
 
+.messagenvoyes{
+word-wrap: break-word;         /* All browsers since IE 5.5+ */
+    overflow-wrap: break-word;     /* Renamed property in CSS3 draft spec */
+    width: 100%;
+    text-overflow: 0;
 }
 
-
-  #m{ 
+  /*#m{ 
     border: 2px solid black; 
     padding: 10px; 
     width: 29%;  
     position: fixed; 
     right:5%;
     bottom: 0;
-  }
-  #send{ 
-    width: 5%; 
-    background: rgb(121,2,2);
-    color:white; 
-    padding: 10px; 
-    position: fixed; 
-    bottom: 0;
-    right:0;
-  }
-#messages{
-width: 35%;
+  }*/
 
-}
 
 
   #message_block{ 

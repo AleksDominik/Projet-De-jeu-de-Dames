@@ -32,17 +32,77 @@ app.use(express.static(__dirname + '/htdocs',{index:"pagedacceuill.html"}));
 res.sendFile('index.html', { root: __dirname + "/htdocs" } );
 
 });*/
-app.listen(port);
+
+server.listen(port);
+
 
 var user_count = 0;
+function VerifieCoup(Position, tabCoup){//prend la position que le serveur connait et le tableau case depart -case arrive est valable
+
+//prise en compte de la validiter et des reggggggggles.
+if((tabCoup[1][0]%2==0 && tabCoup[1][1]%2==0)|| ((tabCoup[1][0]%2==0 && tabCoup[1][1]%2==0))){   //il faut etre sur les case valide
 
 
+
+}
+
+
+}
+
+function CreerUnjeu(){
+
+  this.Listedespion=[];
+   this.temps1;
+    this.temps1;
+  this.debut=function(){
+    for (var i = 0; i < 10; i++) {
+      for (var j = 0;j< 10; j++) {
+        if ((i%2==0) &&( j%2==0) && (i<4)) {
+         this.Listedespion.push([]);
+          console.log("pion du joueur 1op1",this.Listedespion);
+          this.Listedespion[i].push(1);
+        }
+        else if ((i%2==0 )&& (j%2==0)&& (i>5)) {
+          
+          this.Listedespion[i].push(2);
+
+          console.log("pion du joueur 2");
+
+        }
+        else if ((i%2==1) && (j%2==1) && (i<4)) {
+          //this.Listedespion[i][j]=1;
+          this.Listedespion[i].push(1);
+          console.log("pion du joueur 1op2");
+            
+        }
+        else if ((i%2==1) && (j%2==1) && (i>5)) {
+          //this.Listedespion[i][j]=2;
+          this.Listedespion[i].push(2);
+          console.log("pion du joueur 2");
+
+        }
+        else{
+          this.Listedespion[i].push(3);
+        }
+
+            }
+      
+  }
+
+
+
+
+
+}
+return this
+}
 /*
 ** socket connection listener
 */
 io.on('connection', function (socket) {
   console.log('client connected');
-
+  
+  
   socket.on('add user', function (username) {
     socket.username = username;
     console.log("new user:"+username+" logged.");
@@ -51,6 +111,27 @@ io.on('connection', function (socket) {
     });
   });
   
+  socket.on("debutdepartie",function(){
+      lejeu=CreerUnjeu();
+       lejeu.debut();
+       console.log(lejeu.Listedespion);
+    io.emit("positioninitial",{
+      position:lejeu.Listedespion})
+  })
+
+socket.on("coupjouer",function(data){
+console.log("coup joue",data);
+
+
+
+
+});
+
+
+
+
+
+
   socket.on('disconnect',function(){
     console.log(socket.username+" left.");
     io.emit('user left',{
