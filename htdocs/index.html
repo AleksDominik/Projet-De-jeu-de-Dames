@@ -13,17 +13,30 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="/socket.io/socket.io.js"></script>
-<script type="text/javascript" src="../jsobject/jsobject.js"></script>
+<script src="http://localhost:8080/socket.io/socket.io.js"></script>
+<!-- <script type="text/javascript" src="../jsobject/jsobject.js"></script> -->
 </head>
 
 <body>
+<nav class="navbar navbar-expand-lg navbar-light navbar-dark bg-dark">
+  <a class="navbar-brand" href="./pagedacceuill.html">Page d'accueille</a>
+ 
 
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="#">Home</a>
+      <a class="nav-item nav-link active" href="#">Features</a>
+      <a class="nav-item nav-link active" href="#">Pricing</a>
+      <a class="nav-item nav-link active" href="#">Disabled</a>
+
+  </div>
+
+</nav>
  <div class="container">
 
 
-
-<p >voiLA</p>
+<div >
+  
+</div>
   <div class="row">
      <div class="col-8">
     <table >
@@ -41,19 +54,27 @@
 </table>
   </div>
       <div class="col-4" >
-        <div style="height: 85%;" data-spy="scroll" data-offset="0" >
-          <ul id="messages"  class="list-group list-group">hello!!!!!!
+      <div class="container-fluid h-100">
+        
+ <div >
+          <ul id="messages" data-spy="scroll" data-offset="0"  data-target=".messageenvoyes" class="list-group list-group" style="height:500px; overflow-y: scroll;">
+            <li class="messageenvoyes">
+              dfdfdf
+            </li>
           </ul>
         </div>
          
 
-
+        
           <div class="input-group sm-3" >
              <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="send" id="m">
               <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" type="button" id="send">Button</button>
+                 <button class="btn btn-outline-secondary" type="button" id="send">Button</button>     
               </div>
+
           </div>
+      </div>
+       
 
    </div>   
    <div>
@@ -75,7 +96,7 @@
 </body>
   
 <script>
-
+var tour;
 var socket = io.connect('http://localhost:8080'); // émission 'connection'
 $(document).ready(function(){
 
@@ -93,11 +114,12 @@ $.each([0,1,2,3,4,5],function(n){$('tr:nth-child(2n) td:nth-child(2n+1)').
           //n.html(inc);
           jj=inc%10;
           ii=Math.floor(inc/10);
-          $(this).html(inc.toString().concat("/",ii.toString(),"/",jj.toString()));
+          $(this).append("<p>"+inc.toString().concat("/",ii.toString(),"/",jj.toString())+"</p>");
+          
           //console.log("abracadabra");
           inc++;
         });
-
+//$("table tr td p").addClass("textinvisible"); //permet de cacher les coordonnes des elements du tableau
 // association des event pour recuperer les coordonnees des cases
 
 $("table tr td").on("click",function(){
@@ -117,8 +139,8 @@ socket.emit("coupjouer", caseclicker);
   //caseclicker.push([coordonneess[1],coordonneess[2]]);
   }
  
-  console.log("selection d'une case");  
-  console.log(caseclicker);
+  /*console.log("selection d'une case");  
+  console.log(caseclicker);*/
 
   
 })
@@ -129,13 +151,24 @@ socket.emit("coupjouer", caseclicker);
         if(name=="" || name==null){
           name = "guest";
       }
-       socket.emit("debutdepartie");
+      socket.emit("debutdepartie");
       socket.emit("add user",name);
       socket.on("positioninitial",function(data){
-        Position(data.position);
-     console.log(data.position);
+      Position(data.position);
+      tour=data.tour;
+  
 
       });
+
+socket.on("NouvellePosition",function(data){
+   tour=data.tour;
+  console.log(data.Position,tour);
+
+  Position(data.Position);
+
+})
+
+
 
       socket.on('add user',function(data){
           appendMessage(data.username+" has joined the chat room!");
@@ -188,16 +221,18 @@ socket.emit("coupjouer", caseclicker);
 
 
 function Position(tableau){
+  $(".joueur1").removeClass("joueur1");
+  $(".joueur2").removeClass("joueur2");
   i=0;
   for (var i =  0; i < tableau.length ; i++) {
     for (var j = 0; j <tableau[i].length; j++) {
       
-           if(tableau[i][j]==1 ){ console.log("case du premier joueur");console.log(tableau[i][j],i,j); 
+           if(tableau[i][j]==1 ){ //console.log(tableau[i][j],i,j); 
            index=i.toString;
            colmn=j.toString;
            $(" table tr").eq(i).children("td").eq(j).addClass('joueur1');
             };
-            if(tableau[i][j]==2 ){ console.log("case du premier joueur");console.log(tableau[i][j],i,j); 
+            if(tableau[i][j]==2 ){ //console.log(tableau[i][j],i,j); 
            index=i.toString;
            colmn=j.toString;
            $(" table tr").eq(i).children("td").eq(j).addClass('joueur2');

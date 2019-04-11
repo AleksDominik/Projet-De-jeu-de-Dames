@@ -11,17 +11,62 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="container"></div>
+
+<div class="container">
+<nav class="navbar navbar-expand-lg navbar-light navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Page d'accueille</a>
+ 
+
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="#">Profil du joueur</a>
+      <a class="nav-item nav-link active" href="#">Features</a>
+      <a class="nav-item nav-link active" href="#">Pricing</a>
+      <a class="nav-item nav-link active" href="#">Disabled</a>
+
+  </div>
+
+</nav>
+<div class="container"> 
+  
+</div>
 <div>
 	page d'accueill des joueurs
 </div>
+<div class="form-group">
+
+<div class="form-row">
+ <div class="col-md-6 mb-3">
+ 	<label for="exampleFormControlSelect1">Liste des salles</label>
+    <select  multiple  class="form-control" id="salle">
+
+      <option>Salle 1</option>
+      <option>Salle 2</option>
+      <option>Salle 3</option>
+      <option>Salle 4</option>
+      <option>Salle 5</option>
+    </select>
+  </div>
+
+  <div class="col-md-6 mb-3">
+ 	<label for="exampleFormControlSelect1">Pseudo du joueur</label>
+  	<input type="text" class="form-control" id="Pseudodujoueur" placeholder="Pseudo du joueur" required>
+  </div>
+</div>
 
 
-<button type="button" class="btn btn-primary">Primary</button>
+</div>
+
+<button type="button" class="btn btn-dark">Primary</button>
+
+
+
+</div>
 
 <script type="text/javascript">
 	$("button").on("click", function(){
-		window.location.href ="./index.html";
+		joueur=$("#Pseudodujoueur").text();
+		salle=$("#salle").val();
+		window.location.href ="./index.html?token=debut&joueur="+joueur+"&salle="+salle;
 		console.log("envoie de la requete");
 		/*$.post( "/app",{redirect:"vaide pagedaccueil"},function(data){
 			console.log(data)
